@@ -14,6 +14,7 @@ const MovieCard = () => {
       setMovies(json.Search);
       setIsLoading(false);
       // console.log(json.Search);
+      console.log(json.Search.Title)
     };
 
     setTimeout(() => {
@@ -27,9 +28,9 @@ const MovieCard = () => {
         <p>Loading...</p>
       ) : (
         movies.map((movie) => (
-          <div>
-            <h2>
-              {movie.title} - {movie.year}
+          <div key={movie.imdbID}>
+            <h2  >
+              {movie.Title} - {movie.Year}
             </h2>
           </div>
         ))
