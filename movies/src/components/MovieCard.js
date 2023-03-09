@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect } from "react";
 
 const MovieCard = () => {
   const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchData = async () => {
+    const response = await fetch(
+      "http://www.omdbapi.com/?s=Batman&page=2&apikey=350bc702"
+    );
+    const json = await response.json();
+    setMovies(json.Search);
+    // console.log(json.Search);
+    console.log(json.Search.Title);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        "http://www.omdbapi.com/?s=Batman&page=2&apikey=350bc702"
-      );
-      const json = await response.json();
-      setMovies(json.Search);
-      setIsLoading(false);
-      // console.log(json.Search);
-      console.log(json.Search.Title)
-    };
-
+    setIsLoading(true);
     setTimeout(() => {
       fetchData();
     }, 2000);
+    setIsLoading(false);
   }, []);
 
   return (
@@ -29,7 +29,7 @@ const MovieCard = () => {
       ) : (
         movies.map((movie) => (
           <div key={movie.imdbID}>
-            <h2  >
+            <h2>
               {movie.Title} - {movie.Year}
             </h2>
           </div>
